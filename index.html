@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChemConnect KY — Chemical Engineering Jobs in Lexington</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --surface: #111418;
+    --surface2: #181c22;
+    --border: #1e2530;
+    --accent: #e8ff47;
+    --accent2: #47c8ff;
+    --accent3: #ff6b35;
+    --text: #e8eaf0;
+    --text-muted: #6b7280;
+    --text-dim: #9ca3af;
+    --tag-bg: #1a2035;
+    --tag-text: #6b9aff;
+    --green: #4ade80;
+    --red: #f87171;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Noise texture overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── Header ── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 12, 15, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    text-decoration: none;
+  }
+
+  .logo-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .logo-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 5px rgba(74, 222, 128, 0); }
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    padding: 4rem 2rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title span {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--text-dim);
+    max-width: 540px;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── Stats bar ── */
+  .stats-bar {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .stat-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+  }
+
+  /* ── Search & filters ── */
+  .search-section {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem 2rem;
+  }
+
+  .search-bar {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .search-input-wrap {
+    flex: 1;
+    min-width: 240px;
+    position: relative;
+  }
+
+  .search-input-wrap svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+
+  input[type="text"], select {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    border-radius: 6px;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  select {
+    padding-left: 1rem;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    min-width: 160px;
+  }
+
+  input[type="text"]:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(232, 255, 71, 0.12);
+  }
+
+  .filter-chips {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    background: transparent;
+    user-select: none;
+  }
+
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .chip.active { background: var(--accent); color: #0a0c0f; border-color: var(--accent); font-weight: 700; }
+
+  .results-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    padding: 0 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── Job grid ── */
+  .jobs-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .jobs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* ── Job card ── */
+  .job-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem 1.6rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    gap: 0.6rem 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+    animation: cardIn 0.35s both;
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .job-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--border);
+    transition: background 0.2s;
+  }
+
+  .job-card:hover {
+    border-color: rgba(232, 255, 71, 0.3);
+    transform: translateX(3px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+
+  .job-card:hover::before { background: var(--accent); }
+
+  .job-card.new-today::before { background: var(--accent); }
+  .job-card.new-today { border-color: rgba(232, 255, 71, 0.15); }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    grid-column: 1 / 3;
+  }
+
+  .company-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .company-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+
+  .company-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .job-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+    text-decoration: none;
+  }
+
+  .job-title:hover { color: var(--accent); }
+
+  .card-badges {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .badge-new {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #0a0c0f;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-weight: 700;
+  }
+
+  .badge-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+  }
+
+  .job-desc {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+    grid-column: 1 / 3;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    grid-column: 1 / 3;
+    margin-top: 0.2rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border: 1px solid rgba(107, 154, 255, 0.15);
+  }
+
+  .tag.location { color: var(--accent2); background: rgba(71, 200, 255, 0.07); border-color: rgba(71, 200, 255, 0.15); }
+  .tag.type { color: var(--accent3); background: rgba(255, 107, 53, 0.07); border-color: rgba(255, 107, 53, 0.15); }
+  .tag.exp { color: var(--green); background: rgba(74, 222, 128, 0.07); border-color: rgba(74, 222, 128, 0.15); }
+
+  .salary {
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .no-results .nr-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Footer ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Glow elements ── */
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow-1 {
+    width: 500px; height: 500px;
+    background: rgba(232, 255, 71, 0.03);
+    top: -200px; right: -100px;
+  }
+
+  .glow-2 {
+    width: 400px; height: 400px;
+    background: rgba(71, 200, 255, 0.03);
+    bottom: 100px; left: -150px;
+  }
+
+  @media (max-width: 640px) {
+    .hero-title { font-size: 3rem; }
+    .stats-bar { gap: 1.25rem; }
+    .card-top { flex-direction: column; }
+    .card-badges { flex-direction: row; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-orb glow-1"></div>
+<div class="glow-orb glow-2"></div>
+
+<!-- Header -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <span class="logo-main">ChemConnect</span>
+      <span class="logo-sub">Lexington, KY</span>
+    </a>
+    <div class="header-meta">
+      <span><span class="live-dot"></span>Live Board</span>
+      <span id="header-count">— jobs</span>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-eyebrow">Chemical Engineering Opportunities</div>
+  <h1 class="hero-title">
+    Jobs Built for<br>
+    <span>ChemEng Talent</span>
+  </h1>
+  <p class="hero-sub">The only job board focused exclusively on chemical engineering roles in Lexington, KY and the surrounding Bluegrass region. Curated fresh, posted fast.</p>
+
+  <div class="stats-bar" id="stats-bar">
+    <div class="stat"><div class="stat-val" id="stat-total">—</div><div class="stat-label">Open Roles</div></div>
+    <div class="stat"><div class="stat-val" id="stat-new">—</div><div class="stat-label">Posted This Week</div></div>
+    <div class="stat"><div class="stat-val" id="stat-companies">—</div><div class="stat-label">Companies Hiring</div></div>
+    <div class="stat"><div class="stat-val">KY</div><div class="stat-label">Greater Lexington</div></div>
+  </div>
+</div>
+
+<!-- Search -->
+<div class="search-section">
+  <div class="search-bar">
+    <div class="search-input-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="search-input" placeholder="Search jobs, skills, companies…" oninput="filterJobs()">
+    </div>
+    <select id="company-filter" onchange="filterJobs()">
+      <option value="">All Companies</option>
+    </select>
+    <select id="type-filter" onchange="filterJobs()">
+      <option value="">All Types</option>
+      <option value="Full-Time">Full-Time</option>
+      <option value="Contract">Contract</option>
+      <option value="Part-Time">Part-Time</option>
+    </select>
+  </div>
+  <div class="filter-chips" id="filter-chips">
+    <button class="chip active" onclick="setDiscipline('')">All Disciplines</button>
+    <button class="chip" onclick="setDiscipline('Process')">Process</button>
+    <button class="chip" onclick="setDiscipline('Quality')">Quality / Regulatory</button>
+    <button class="chip" onclick="setDiscipline('Manufacturing')">Manufacturing</button>
+    <button class="chip" onclick="setDiscipline('R&D')">R&D</button>
+    <button class="chip" onclick="setDiscipline('Safety')">EHS / Safety</button>
+    <button class="chip" onclick="setDiscipline('Pharma')">Pharma / Bio</button>
+  </div>
+</div>
+
+<!-- Results meta -->
+<div class="results-meta" id="results-meta"></div>
+
+<!-- Jobs list -->
+<div class="jobs-section">
+  <div class="section-label" id="section-label">Recent Postings — Last 7 Days</div>
+  <div class="jobs-list" id="jobs-list"></div>
+</div>
+
+<footer>
+  ChemConnect KY &nbsp;·&nbsp; Chemical Engineering Jobs · Greater Lexington, KY &nbsp;·&nbsp; Updated daily
+</footer>
+
+<script>
+// ── Job Data ──────────────────────────────────────────────
+// daysAgo: 0 = today, 1 = yesterday, etc.
+const RAW_JOBS = [
+  // ── TODAY ──
+  {
+    id: 1,
+    title: "Process Engineer I",
+    company: "Smucker's",
+    companySlug: "smuckers",
+    color: "#c8412a",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Process",
+    experience: "0–2 Years",
+    salary: "$65K–$80K",
+    daysAgo: 0,
+    url: "https://www.smucker.com/careers",
+    description: "Support food-grade processing lines through data collection, troubleshooting, and yield improvement projects. B.S. ChemE required, 0–2 yrs experience (co-op/internship counts), familiarity with P&IDs and AutoCAD, and basic understanding of FDA food safety regulations (GMP).",
+    tags: ["Process Improvement", "P&IDs", "GMP", "Food Safety"]
+  },
+  {
+    id: 2,
+    title: "Junior Process Engineer — Lubricants",
+    company: "Valvoline",
+    companySlug: "valvoline",
+    color: "#e87d00",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Process",
+    experience: "0–3 Years",
+    salary: "$62K–$80K",
+    daysAgo: 0,
+    url: "https://careers.valvoline.com",
+    description: "Assist with blending and packaging process optimization for engine oil product lines. B.S. ChemE, 0–3 yrs (internship accepted), basic SAP or ERP familiarity a plus, strong analytical skills, and willingness to work in a plant environment.",
+    tags: ["Blending Ops", "SAP", "Process Data", "Lubricants"]
+  },
+  {
+    id: 3,
+    title: "Associate Chemical Engineer",
+    company: "Lexmark International",
+    companySlug: "lexmark",
+    color: "#005f8e",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Manufacturing",
+    experience: "0–2 Years",
+    salary: "$60K–$76K",
+    daysAgo: 0,
+    url: "https://www.lexmark.com/en_us/about/careers.html",
+    description: "Support ink and toner chemical formulation processes in a high-volume manufacturing environment. B.S. ChemE or Chemistry, 0–2 yrs experience, exposure to colloidal chemistry or polymer dispersions a plus, Microsoft Excel proficiency required, strong attention to detail.",
+    tags: ["Ink/Toner Chemistry", "Formulation", "Manufacturing Support", "QC"]
+  },
+  {
+    id: 4,
+    title: "EHS Associate Engineer",
+    company: "Bullard",
+    companySlug: "bullard",
+    color: "#d4a017",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Safety",
+    experience: "0–3 Years",
+    salary: "$58K–$74K",
+    daysAgo: 0,
+    url: "https://www.bullard.com/careers",
+    description: "Assist in maintaining safety programs and environmental compliance for PPE manufacturing facilities. B.S. ChemE or Environmental Engineering, 0–3 yrs, basic knowledge of OSHA general industry standards, willingness to obtain 30-hr OSHA certification, and strong written communication skills.",
+    tags: ["OSHA", "EHS Compliance", "Incident Reporting", "PPE"]
+  },
+  // ── YESTERDAY ──
+  {
+    id: 5,
+    title: "Manufacturing Engineer I — Drug Delivery",
+    company: "Kindeva Drug Delivery",
+    companySlug: "kindeva",
+    color: "#2a7de1",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Pharma",
+    experience: "1–3 Years",
+    salary: "$68K–$88K",
+    daysAgo: 1,
+    url: "https://www.kindevadds.com/careers",
+    description: "Support cGMP manufacturing operations for inhaled drug delivery products under direct supervision. B.S. ChemE or related, 1–3 yrs experience (pharma internship accepted), basic understanding of GMP documentation, and ability to work in a controlled cleanroom environment.",
+    tags: ["cGMP", "Cleanroom", "GMP Docs", "Inhaled Products"]
+  },
+  {
+    id: 6,
+    title: "QA Engineer I",
+    company: "Piramal Pharma Solutions",
+    companySlug: "piramal",
+    color: "#6a3de8",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Quality",
+    experience: "1–3 Years",
+    salary: "$62K–$82K",
+    daysAgo: 1,
+    url: "https://www.piramalpharmasolutions.com/careers",
+    description: "Support quality systems for pharmaceutical API manufacturing including batch record review and deviation investigations. B.S. ChemE or Life Sciences, 1–3 yrs QA experience, working knowledge of 21 CFR Part 211, strong attention to documentation detail.",
+    tags: ["21 CFR 211", "Batch Records", "Deviations", "CAPA"]
+  },
+  {
+    id: 7,
+    title: "Chemical Engineer — Materials Testing",
+    company: "Bullard",
+    companySlug: "bullard",
+    color: "#d4a017",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "R&D",
+    experience: "0–3 Years",
+    salary: "$60K–$80K",
+    daysAgo: 1,
+    url: "https://www.bullard.com/careers",
+    description: "Conduct mechanical and chemical testing on polymer materials used in protective helmets and face shields. B.S. ChemE or Materials Science, 0–3 yrs, hands-on lab skills required, familiarity with ASTM test methods a plus, strong data documentation habits.",
+    tags: ["ASTM Testing", "Polymer Materials", "Lab Testing", "PPE Standards"]
+  },
+  {
+    id: 8,
+    title: "Process Engineer I — Specialty Chemicals",
+    company: "Ashland Global",
+    companySlug: "ashland",
+    color: "#00897b",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Process",
+    experience: "0–3 Years",
+    salary: "$63K–$82K",
+    daysAgo: 1,
+    url: "https://www.ashland.com/careers",
+    description: "Assist senior engineers in optimizing batch chemical processes for specialty adhesive and coating products. B.S. ChemE, 0–3 yrs, exposure to batch or continuous chemical processes preferred, proficiency in Excel/data analysis, and basic understanding of reaction kinetics.",
+    tags: ["Batch Processes", "Adhesives", "Reaction Kinetics", "Data Analysis"]
+  },
+  // ── 2 DAYS AGO ──
+  {
+    id: 9,
+    title: "Production Engineer — Food Processing",
+    company: "Smucker's",
+    companySlug: "smuckers",
+    color: "#c8412a",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Manufacturing",
+    experience: "1–3 Years",
+    salary: "$65K–$83K",
+    daysAgo: 2,
+    url: "https://www.smucker.com/careers",
+    description: "Coordinate production scheduling and troubleshoot equipment issues on jam and preserve lines. B.S. ChemE or Food Engineering, 1–3 yrs in food/beverage manufacturing, familiarity with HACCP and SQF standards, ability to work rotating shifts when needed.",
+    tags: ["HACCP", "SQF", "Production Scheduling", "Food Mfg"]
+  },
+  {
+    id: 10,
+    title: "Environmental Health & Safety Engineer",
+    company: "Toyota Motor Manufacturing Kentucky",
+    companySlug: "tmmk",
+    color: "#eb0a1e",
+    type: "Full-Time",
+    location: "Georgetown, KY",
+    discipline: "Safety",
+    experience: "0–3 Years",
+    salary: "$62K–$80K",
+    daysAgo: 2,
+    url: "https://www.toyota.com/usa/operations/map/tmmk",
+    description: "Support EHS compliance programs for automotive paint and chemical processes in the largest Toyota plant in North America. B.S. ChemE or Environmental Engineering, 0–3 yrs, basic OSHA/EPA regulatory knowledge, ability to interpret SDS/chemical hazard data.",
+    tags: ["OSHA", "EPA Compliance", "Chemical Hazards", "Automotive"]
+  },
+  {
+    id: 11,
+    title: "Chemical Engineer — Paint & Coatings",
+    company: "Toyota Motor Manufacturing Kentucky",
+    companySlug: "tmmk",
+    color: "#eb0a1e",
+    type: "Full-Time",
+    location: "Georgetown, KY",
+    discipline: "Process",
+    experience: "1–3 Years",
+    salary: "$66K–$85K",
+    daysAgo: 2,
+    url: "https://www.toyota.com/usa/operations/map/tmmk",
+    description: "Support electrocoat and topcoat paint process engineering for vehicle body finishing. B.S. ChemE, 1–3 yrs, familiarity with coatings chemistry or electrochemistry a plus, comfortable with SPC and statistical monitoring, team-oriented with strong communication skills.",
+    tags: ["Coatings Chemistry", "Electrocoat", "SPC", "Automotive Paint"]
+  },
+  {
+    id: 12,
+    title: "Formulation Chemist / Engineer",
+    company: "Valvoline",
+    companySlug: "valvoline",
+    color: "#e87d00",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "R&D",
+    experience: "1–3 Years",
+    salary: "$65K–$85K",
+    daysAgo: 2,
+    url: "https://careers.valvoline.com",
+    description: "Develop and test lubricant formulations for passenger car and commercial fleet products. B.S. ChemE or Chemistry, 1–3 yrs, lab bench skills required, familiarity with viscosity and tribological testing methods, and interest in additive chemistry.",
+    tags: ["Lubricant Formulation", "Viscometry", "Additive Chemistry", "Lab Skills"]
+  },
+  // ── 3 DAYS AGO ──
+  {
+    id: 13,
+    title: "Process Engineer — API Manufacturing",
+    company: "Piramal Pharma Solutions",
+    companySlug: "piramal",
+    color: "#6a3de8",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Pharma",
+    experience: "1–3 Years",
+    salary: "$68K–$90K",
+    daysAgo: 3,
+    url: "https://www.piramalpharmasolutions.com/careers",
+    description: "Provide engineering support for small molecule API synthesis campaigns in a cGMP environment. B.S. ChemE, 1–3 yrs, basic knowledge of organic chemistry reactions, comfort with batch records and SOPs, and eagerness to learn pharmaceutical manufacturing practices.",
+    tags: ["API Synthesis", "cGMP", "Batch Records", "Organic Chemistry"]
+  },
+  {
+    id: 14,
+    title: "Associate Process Engineer",
+    company: "Calumet Specialty Products",
+    companySlug: "calumet",
+    color: "#4a5568",
+    type: "Full-Time",
+    location: "Winchester, KY",
+    discipline: "Process",
+    experience: "0–3 Years",
+    salary: "$62K–$80K",
+    daysAgo: 3,
+    url: "https://www.calumetspecialty.com/careers",
+    description: "Assist with monitoring and improving distillation and blending operations for specialty petroleum products. B.S. ChemE, recent graduates welcomed, basic thermodynamics and mass/energy balance skills, and willingness to learn HYSYS process simulation.",
+    tags: ["Distillation", "HYSYS", "Petroleum Products", "Mass Balance"]
+  },
+  {
+    id: 15,
+    title: "Quality Control Chemist / Engineer",
+    company: "Kindeva Drug Delivery",
+    companySlug: "kindeva",
+    color: "#2a7de1",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Quality",
+    experience: "0–2 Years",
+    salary: "$58K–$75K",
+    daysAgo: 3,
+    url: "https://www.kindevadds.com/careers",
+    description: "Perform in-process and release testing for inhaled drug products using HPLC and particle size analysis. B.S. ChemE or Analytical Chemistry, 0–2 yrs, hands-on HPLC experience preferred (academic counts), knowledge of GLP/GMP testing environments.",
+    tags: ["HPLC", "Particle Size", "GLP", "Release Testing"]
+  },
+  {
+    id: 16,
+    title: "Environmental Engineer I",
+    company: "Lexington-Fayette LFUCG",
+    companySlug: "lfucg",
+    color: "#2d6a4f",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Safety",
+    experience: "0–3 Years",
+    salary: "$52K–$68K",
+    daysAgo: 3,
+    url: "https://www.lexingtonky.gov/jobs",
+    description: "Support environmental compliance for municipal wastewater treatment and stormwater management programs. B.S. ChemE or Environmental Engineering, 0–3 yrs, EIT registration preferred or in progress, basic NPDES permit knowledge, strong written reporting skills.",
+    tags: ["NPDES", "Wastewater", "EIT", "Stormwater Mgmt"]
+  },
+  // ── 4 DAYS AGO ──
+  {
+    id: 17,
+    title: "Chemical Process Technician / Jr. Engineer",
+    company: "Hexion",
+    companySlug: "hexion",
+    color: "#1a6b3a",
+    type: "Full-Time",
+    location: "Louisville, KY",
+    discipline: "Process",
+    experience: "0–3 Years",
+    salary: "$60K–$78K",
+    daysAgo: 4,
+    url: "https://www.hexion.com/en-US/about-hexion/careers/",
+    description: "Support resin and adhesive production processes at a specialty chemical manufacturing facility. B.S. ChemE or Chemical Technology, 0–3 yrs, understanding of condensation polymerization reactions, comfort in plant environment with PPE, basic PLC/HMI interaction.",
+    tags: ["Resin Production", "Polymerization", "PLC/HMI", "Specialty Chemicals"]
+  },
+  {
+    id: 18,
+    title: "Associate R&D Engineer — Inks & Fluids",
+    company: "Lexmark International",
+    companySlug: "lexmark",
+    color: "#005f8e",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "R&D",
+    experience: "0–2 Years",
+    salary: "$60K–$78K",
+    daysAgo: 4,
+    url: "https://www.lexmark.com/en_us/about/careers.html",
+    description: "Conduct formulation experiments for next-generation inkjet fluid development. B.S. ChemE or Chemistry, 0–2 yrs, strong lab skills required, familiarity with surface tension and viscosity measurements a plus, detail-oriented with good notebook/documentation practices.",
+    tags: ["Inkjet Fluids", "Formulation R&D", "Viscosity Testing", "Lab Skills"]
+  },
+  {
+    id: 19,
+    title: "Production Process Engineer",
+    company: "Bunge North America",
+    companySlug: "bunge",
+    color: "#b5451b",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Process",
+    experience: "1–3 Years",
+    salary: "$64K–$82K",
+    daysAgo: 4,
+    url: "https://www.bunge.com/careers",
+    description: "Support continuous improvement on edible oil processing lines including bleaching and deodorization. B.S. ChemE, 1–3 yrs, basic heat transfer and evaporation process knowledge, HACCP awareness, and ability to interpret process trends from PI Historian or similar.",
+    tags: ["Edible Oils", "HACCP", "Heat Transfer", "PI Historian"]
+  },
+  {
+    id: 20,
+    title: "Chemical Engineer I — Coatings",
+    company: "Sherwin-Williams",
+    companySlug: "sherwin",
+    color: "#c41230",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "R&D",
+    experience: "0–3 Years",
+    salary: "$62K–$80K",
+    daysAgo: 4,
+    url: "https://jobs.sherwin-williams.com",
+    description: "Develop and test architectural and industrial coating formulations in a regional R&D lab. B.S. ChemE or Chemistry, 0–3 yrs, basic polymer chemistry knowledge, lab bench proficiency, familiarity with viscosity/rheology testing, and interest in sustainable coatings chemistry.",
+    tags: ["Coatings R&D", "Polymer Chemistry", "Rheology", "Sustainable Chem"]
+  },
+  // ── 5 DAYS AGO ──
+  {
+    id: 21,
+    title: "Process Safety Engineer I",
+    company: "Valvoline",
+    companySlug: "valvoline",
+    color: "#e87d00",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Safety",
+    experience: "1–3 Years",
+    salary: "$65K–$84K",
+    daysAgo: 5,
+    url: "https://careers.valvoline.com",
+    description: "Support PSM program activities including PHA pre-work, MOC documentation, and incident investigation. B.S. ChemE, 1–3 yrs, basic understanding of OSHA 1910.119 PSM standard, strong writing skills for procedure and documentation development.",
+    tags: ["PSM", "MOC", "OSHA 1910.119", "Incident Investigation"]
+  },
+  {
+    id: 22,
+    title: "Entry-Level Pharmaceutical Engineer",
+    company: "Piramal Pharma Solutions",
+    companySlug: "piramal",
+    color: "#6a3de8",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Pharma",
+    experience: "0–2 Years",
+    salary: "$60K–$78K",
+    daysAgo: 5,
+    url: "https://www.piramalpharmasolutions.com/careers",
+    description: "Entry-level role supporting pharmaceutical operations including equipment cleaning validation and process monitoring. B.S. ChemE, new grads welcome, familiarity with GMP concepts from coursework or internship, strong ability to follow written procedures precisely.",
+    tags: ["GMP", "Cleaning Validation", "Process Monitoring", "Entry Level"]
+  },
+  {
+    id: 23,
+    title: "Chemical Engineer — Manufacturing Support",
+    company: "Henkel",
+    companySlug: "henkel",
+    color: "#d2232a",
+    type: "Full-Time",
+    location: "Louisville, KY",
+    discipline: "Manufacturing",
+    experience: "1–3 Years",
+    salary: "$63K–$82K",
+    daysAgo: 5,
+    url: "https://www.henkel.com/careers",
+    description: "Support adhesive and sealant manufacturing processes for automotive and electronics customers. B.S. ChemE, 1–3 yrs (co-op/internship accepted), basic understanding of mixing and coating processes, comfortable working in a plant setting, and proficient in Microsoft Office suite.",
+    tags: ["Adhesives", "Sealants", "Manufacturing Support", "Automotive"]
+  },
+  {
+    id: 24,
+    title: "Associate Quality Engineer",
+    company: "Ashland Global",
+    companySlug: "ashland",
+    color: "#00897b",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Quality",
+    experience: "0–3 Years",
+    salary: "$58K–$76K",
+    daysAgo: 5,
+    url: "https://www.ashland.com/careers",
+    description: "Perform quality testing on specialty chemical batches and support continuous improvement of QC procedures. B.S. ChemE or Chemistry, 0–3 yrs, basic analytical chemistry skills (titration, spectroscopy), ISO 9001 awareness a plus, and strong record-keeping habits.",
+    tags: ["Analytical Testing", "ISO 9001", "QC Procedures", "Specialty Chemicals"]
+  },
+  // ── 6 DAYS AGO ──
+  {
+    id: 25,
+    title: "Process Engineer — Polymer Films",
+    company: "Berry Global",
+    companySlug: "berry",
+    color: "#0050a0",
+    type: "Full-Time",
+    location: "Bowling Green, KY",
+    discipline: "Process",
+    experience: "0–3 Years",
+    salary: "$60K–$78K",
+    daysAgo: 6,
+    url: "https://careers.berryglobal.com",
+    description: "Support blown film and sheet extrusion process optimization for flexible packaging production. B.S. ChemE or Polymer Engineering, 0–3 yrs, knowledge of polymer processing fundamentals, ability to read process data trends and recommend adjustments.",
+    tags: ["Film Extrusion", "Polymer Processing", "Flexible Packaging", "Process Trends"]
+  },
+  {
+    id: 26,
+    title: "Chemical Engineer I — Ink Manufacturing",
+    company: "Lexmark International",
+    companySlug: "lexmark",
+    color: "#005f8e",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Manufacturing",
+    experience: "0–2 Years",
+    salary: "$58K–$74K",
+    daysAgo: 6,
+    url: "https://www.lexmark.com/en_us/about/careers.html",
+    description: "Support ink manufacturing scale-up from R&D formulations to production batches. B.S. ChemE, recent grads considered, understanding of mixing, filtration, and dispersion processes, ability to troubleshoot batch deviations, and attention to manufacturing documentation.",
+    tags: ["Scale-Up", "Dispersion", "Batch Manufacturing", "Inks"]
+  },
+  {
+    id: 27,
+    title: "Entry Process Engineer — Resin Systems",
+    company: "Hexion",
+    companySlug: "hexion",
+    color: "#1a6b3a",
+    type: "Full-Time",
+    location: "Louisville, KY",
+    discipline: "Process",
+    experience: "0–3 Years",
+    salary: "$62K–$80K",
+    daysAgo: 6,
+    url: "https://www.hexion.com/en-US/about-hexion/careers/",
+    description: "Monitor and support continuous resin synthesis reactor operations under guidance of senior engineers. B.S. ChemE, 0–3 yrs, reactor/kinetics coursework required, basic familiarity with DCS systems, and strong safety mindset for working with reactive chemistries.",
+    tags: ["Reactor Ops", "Resin Synthesis", "DCS", "Reaction Kinetics"]
+  },
+  {
+    id: 28,
+    title: "Contract QA Engineer",
+    company: "Kindeva Drug Delivery",
+    companySlug: "kindeva",
+    color: "#2a7de1",
+    type: "Contract",
+    location: "Lexington, KY",
+    discipline: "Quality",
+    experience: "1–3 Years",
+    salary: "$38–$50/hr",
+    daysAgo: 6,
+    url: "https://www.kindevadds.com/careers",
+    description: "12-month contract role supporting audit readiness and batch disposition activities for inhaled drug products. B.S. ChemE or related, 1–3 yrs pharma QA experience, solid GMP documentation skills, ability to review batch records independently, and meticulous with compliance details.",
+    tags: ["Audit Readiness", "Batch Disposition", "GMP Docs", "Contract Role"]
+  },
+  {
+    id: 29,
+    title: "Coatings Process Engineer",
+    company: "Sherwin-Williams",
+    companySlug: "sherwin",
+    color: "#c41230",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "Manufacturing",
+    experience: "1–3 Years",
+    salary: "$63K–$82K",
+    daysAgo: 6,
+    url: "https://jobs.sherwin-williams.com",
+    description: "Optimize paint manufacturing processes including dispersion, letdown, and filling operations. B.S. ChemE, 1–3 yrs, understanding of mixing and dispersion unit operations, basic rheology knowledge, and ability to work cross-functionally with R&D and production teams.",
+    tags: ["Paint Mfg", "Dispersion", "Rheology", "Cross-Functional"]
+  },
+  {
+    id: 30,
+    title: "Chemical Engineer I — PPE Innovation",
+    company: "Bullard",
+    companySlug: "bullard",
+    color: "#d4a017",
+    type: "Full-Time",
+    location: "Lexington, KY",
+    discipline: "R&D",
+    experience: "0–3 Years",
+    salary: "$60K–$78K",
+    daysAgo: 6,
+    url: "https://www.bullard.com/careers",
+    description: "Support development of next-generation chemical-resistant materials for industrial face protection and head gear. B.S. ChemE or Materials Science, 0–3 yrs, interest in materials characterization and product development, lab testing experience, and familiarity with safety product standards.",
+    tags: ["Materials Science", "Product Development", "Chemical Resistance", "PPE"]
+  }
+];
+
+// ── State ──
+let disciplineFilter = '';
+let searchQuery = '';
+let companyFilter = '';
+let typeFilter = '';
+
+// ── Helpers ──
+function daysAgoLabel(d) {
+  if (d === 0) return 'Today';
+  if (d === 1) return 'Yesterday';
+  return `${d}d ago`;
+}
+
+function isNew(daysAgo) { return daysAgo <= 1; }
+
+function getDateObj(daysAgo) {
+  const d = new Date();
+  d.setDate(d.getDate() - daysAgo);
+  return d;
+}
+
+function initCompanyFilter() {
+  const sel = document.getElementById('company-filter');
+  const companies = [...new Set(RAW_JOBS.map(j => j.company))].sort();
+  companies.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c;
+    sel.appendChild(opt);
+  });
+}
+
+function setDiscipline(disc) {
+  disciplineFilter = disc;
+  document.querySelectorAll('.chip').forEach(c => {
+    c.classList.toggle('active', c.textContent.trim().startsWith(disc === '' ? 'All' : disc));
+  });
+  filterJobs();
+}
+
+function filterJobs() {
+  searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+  companyFilter = document.getElementById('company-filter').value;
+  typeFilter = document.getElementById('type-filter').value;
+
+  let filtered = RAW_JOBS.filter(job => {
+    const matchSearch = !searchQuery ||
+      job.title.toLowerCase().includes(searchQuery) ||
+      job.company.toLowerCase().includes(searchQuery) ||
+      job.description.toLowerCase().includes(searchQuery) ||
+      job.tags.some(t => t.toLowerCase().includes(searchQuery)) ||
+      job.discipline.toLowerCase().includes(searchQuery);
+    const matchDiscipline = !disciplineFilter || job.discipline.includes(disciplineFilter);
+    const matchCompany = !companyFilter || job.company === companyFilter;
+    const matchType = !typeFilter || job.type === typeFilter;
+    return matchSearch && matchDiscipline && matchCompany && matchType;
+  });
+
+  // Sort by newest first
+  filtered.sort((a, b) => a.daysAgo - b.daysAgo);
+
+  renderJobs(filtered);
+
+  const isFiltered = searchQuery || companyFilter || typeFilter || disciplineFilter;
+  document.getElementById('section-label').textContent = isFiltered
+    ? `${filtered.length} Result${filtered.length !== 1 ? 's' : ''} — Sorted by Newest`
+    : 'Recent Postings — Last 7 Days';
+
+  document.getElementById('results-meta').textContent =
+    `Showing ${filtered.length} of ${RAW_JOBS.length} roles · Greater Lexington, KY · Updated daily`;
+}
+
+function renderJobs(jobs) {
+  const container = document.getElementById('jobs-list');
+  if (jobs.length === 0) {
+    container.innerHTML = `<div class="no-results"><div class="nr-icon">⚗️</div><div>No roles match your filters.<br>Try adjusting your search.</div></div>`;
+    return;
+  }
+  container.innerHTML = jobs.map((job, i) => {
+    const initials = job.company.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    return `
+    <div class="job-card ${isNew(job.daysAgo) ? 'new-today' : ''}" style="animation-delay:${i * 0.04}s" onclick="openJob('${job.url}')">
+      <div class="card-top">
+        <div>
+          <div class="company-row">
+            <div class="company-logo" style="background:${job.color}22; color:${job.color}">${initials}</div>
+            <span class="company-name">${job.company}</span>
+          </div>
+          <a class="job-title" href="${job.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${job.title}</a>
+        </div>
+        <div class="card-badges">
+          ${isNew(job.daysAgo) ? '<span class="badge-new">New</span>' : ''}
+          <span class="badge-date">${daysAgoLabel(job.daysAgo)}</span>
+        </div>
+      </div>
+      <p class="job-desc">${job.description}</p>
+      <div class="card-footer">
+        <span class="tag location">📍 ${job.location}</span>
+        <span class="tag type">${job.type}</span>
+        <span class="tag exp">${job.experience}</span>
+        ${job.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+        <span class="salary">${job.salary}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openJob(url) {
+  window.open(url, '_blank', 'noopener');
+}
+
+function updateStats() {
+  const thisWeek = RAW_JOBS.filter(j => j.daysAgo <= 7);
+  const companies = new Set(RAW_JOBS.map(j => j.company));
+  document.getElementById('stat-total').textContent = RAW_JOBS.length;
+  document.getElementById('stat-new').textContent = thisWeek.length;
+  document.getElementById('stat-companies').textContent = companies.size;
+  document.getElementById('header-count').textContent = `${RAW_JOBS.length} open roles`;
+}
+
+// ── Init ──
+initCompanyFilter();
+updateStats();
+filterJobs();
+</script>
+</body>
+</html>
