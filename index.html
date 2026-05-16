@@ -8,10 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:#0a0c0f; --surface:#111418; --border:#1e2530;
-    --accent:#e8ff47; --accent2:#47c8ff; --accent3:#ff6b35;
-    --text:#e8eaf0; --text-muted:#6b7280; --text-dim:#9ca3af;
-    --tag-bg:#1a2035; --tag-text:#6b9aff; --green:#4ade80;
+    --bg:#0a0c0f;--surface:#111418;--border:#1e2530;
+    --accent:#e8ff47;--accent2:#47c8ff;--accent3:#ff6b35;
+    --text:#e8eaf0;--text-muted:#6b7280;--text-dim:#9ca3af;
+    --tag-bg:#1a2035;--tag-text:#6b9aff;--green:#4ade80;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
@@ -40,12 +40,12 @@
   .search-input-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none;}
   input[type="text"],select{background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-size:.9rem;padding:.75rem 1rem .75rem 2.75rem;border-radius:6px;width:100%;transition:border-color .2s,box-shadow .2s;outline:none;}
   select{padding-left:1rem;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;min-width:160px;}
-  input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(232,255,71,.12);}
-  .filter-chips{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;}
-  .chip{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .75rem;border-radius:100px;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;transition:all .15s;background:transparent;user-select:none;}
+  input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(232,255,71,.12);}
+  .filter-chips{display:flex;gap:.5rem;flex-wrap:wrap;}
+  .chip{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .75rem;border-radius:100px;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;transition:all .15s;background:transparent;}
   .chip:hover{border-color:var(--accent);color:var(--accent);}
   .chip.active{background:var(--accent);color:#0a0c0f;border-color:var(--accent);font-weight:700;}
-  .results-meta{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-muted);margin-bottom:1rem;padding:0 2rem;max-width:1200px;margin-left:auto;margin-right:auto;}
+  .results-meta{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-muted);padding:0 2rem 1rem;max-width:1200px;margin:0 auto;}
   .jobs-section{max-width:1200px;margin:0 auto;padding:0 2rem 4rem;position:relative;z-index:1;}
   .jobs-list{display:flex;flex-direction:column;gap:.75rem;}
   .job-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem 1.6rem;display:grid;grid-template-columns:1fr auto;gap:.6rem 1rem;cursor:pointer;transition:border-color .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden;animation:cardIn .35s both;}
@@ -63,7 +63,6 @@
   .card-badges{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;flex-shrink:0;}
   .badge-new{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;background:var(--accent);color:#0a0c0f;padding:.2rem .5rem;border-radius:3px;font-weight:700;}
   .badge-date{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-muted);}
-  .badge-source{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--text-muted);opacity:.6;}
   .job-desc{font-size:.85rem;color:var(--text-dim);line-height:1.55;grid-column:1/3;}
   .card-footer{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;grid-column:1/3;margin-top:.2rem;}
   .tag{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.06em;padding:.25rem .6rem;border-radius:4px;background:var(--tag-bg);color:var(--tag-text);border:1px solid rgba(107,154,255,.15);}
@@ -79,29 +78,25 @@
   .glow-orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
   .glow-1{width:500px;height:500px;background:rgba(232,255,71,.03);top:-200px;right:-100px;}
   .glow-2{width:400px;height:400px;background:rgba(71,200,255,.03);bottom:100px;left:-150px;}
-  @media(max-width:640px){.hero-title{font-size:3rem;}.stats-bar{gap:1.25rem;}.card-top{flex-direction:column;}.card-badges{flex-direction:row;align-items:center;}}
+  @media(max-width:640px){.hero-title{font-size:3rem;}.stats-bar{gap:1.25rem;}.card-top{flex-direction:column;}.card-badges{flex-direction:row;}}
 </style>
 </head>
 <body>
-<div class="glow-orb glow-1"></div>
-<div class="glow-orb glow-2"></div>
+<div class="glow-orb glow-1"></div><div class="glow-orb glow-2"></div>
 <header>
   <div class="header-inner">
     <a class="logo" href="#"><span class="logo-main">ChemConnect</span><span class="logo-sub">Lexington, KY</span></a>
-    <div class="header-meta">
-      <span><span class="live-dot"></span>Live Board</span>
-      <span id="header-count">9 jobs</span>
-    </div>
+    <div class="header-meta"><span><span class="live-dot"></span>Live Board</span><span id="header-count">1 jobs</span></div>
   </div>
 </header>
 <div class="hero">
   <div class="hero-eyebrow">Chemical Engineering Opportunities</div>
   <h1 class="hero-title">Jobs Built for<br><span>ChemEng Talent</span></h1>
-  <p class="hero-sub">Real ChemE job postings near Lexington, KY — pulled from Google Jobs and updated automatically every hour. Click any title to go directly to the job posting.</p>
+  <p class="hero-sub">Real ChemE postings pulled directly from 1 company career pages near Lexington, KY. Every listing links straight to the original job posting. Updated hourly.</p>
   <div class="stats-bar">
-    <div class="stat"><div class="stat-val">9</div><div class="stat-label">Open Roles</div></div>
+    <div class="stat"><div class="stat-val">1</div><div class="stat-label">Open Roles</div></div>
     <div class="stat"><div class="stat-val">1</div><div class="stat-label">Posted Recently</div></div>
-    <div class="stat"><div class="stat-val">9</div><div class="stat-label">Companies Hiring</div></div>
+    <div class="stat"><div class="stat-val">1</div><div class="stat-label">Companies Hiring</div></div>
     <div class="stat"><div class="stat-val">KY</div><div class="stat-label">Greater Lexington</div></div>
   </div>
 </div>
@@ -113,10 +108,8 @@
     </div>
     <select id="company-filter" onchange="filterJobs()"><option value="">All Companies</option></select>
     <select id="type-filter" onchange="filterJobs()">
-      <option value="">All Types</option>
-      <option value="Full-Time">Full-Time</option>
-      <option value="Contract">Contract</option>
-      <option value="Part-Time">Part-Time</option>
+      <option value="">All Types</option><option value="Full-Time">Full-Time</option>
+      <option value="Contract">Contract</option><option value="Part-Time">Part-Time</option>
     </select>
   </div>
   <div class="filter-chips">
@@ -130,184 +123,33 @@
   </div>
 </div>
 <div class="results-meta" id="results-meta"></div>
-<div class="updated-bar">⟳ Last updated: May 15, 2026 at 06:22 PM · Powered by Google Jobs via SerpAPI</div>
+<div class="updated-bar">⟳ Last updated: May 15, 2026 at 11:56 PM · Scraped directly from company career pages</div>
 <div class="jobs-section">
-  <div class="section-label" id="section-label">Live Postings — Last 7 Days</div>
+  <div class="section-label" id="section-label">Live Postings — Direct from Company Career Pages</div>
   <div class="jobs-list" id="jobs-list"></div>
 </div>
-<footer>ChemConnect KY &nbsp;·&nbsp; Real ChemE Jobs · Greater Lexington, KY &nbsp;·&nbsp; Auto-updated hourly</footer>
+<footer>ChemConnect KY &nbsp;·&nbsp; Real ChemE Jobs · Greater Lexington, KY &nbsp;·&nbsp; Scraped hourly from company career sites</footer>
 <script>
 const RAW_JOBS=[
   {
-    "id": 78305,
-    "title": "Lithium (Casting) Metallurgist-Process Engineer",
-    "company": "Arconic",
-    "color": "#66bb6a",
+    "id": 3378,
+    "title": "Process Engineer — Specialty Petroleum",
+    "company": "Calumet",
+    "color": "#4a5568",
     "type": "Full-Time",
-    "location": "Lafayette, KY, United States",
+    "location": "Winchester, KY",
     "discipline": "Process",
     "experience": "1–3 Years",
     "salary": "Competitive",
     "daysAgo": 2,
-    "url": "https://www.recruit.net/job/lithium-casting-metallurgist-process-engineer-jobs/40E8FC364E8063CD?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-    "description": "Arconic is currently in search of a Lithium (Casting) Metallurgist-Process Engineer to join our Aluminum Extrusion (AEX) business unit in Lafayette, IN.\n\nAt Arconic, we take pride in our work and our innovative products and technologies that advance sustainable solutions for a better world.",
-    "tags": [
-      "Lithium",
-      "Casting",
-      "Metallurgist"
-    ],
-    "source": "Google Jobs"
-  },
-  {
-    "id": 507311,
-    "title": "Process Engineer",
-    "company": "DSJ Global",
-    "color": "#ef5350",
-    "type": "Full-Time",
-    "location": "Ashland, KY, United States",
-    "discipline": "Process",
-    "experience": "1–3 Years",
-    "salary": "US$110K–US$125K a year",
-    "daysAgo": 3,
-    "url": "https://www.linkedin.com/jobs/view/process-engineer-at-dsj-global-4410188326?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-    "description": "Process Engineer | Chemicals | Louisville, KY\n\nAbout the Opportunity:\n\nThis role offers the chance to work in a specialty chemicals manufacturing environment producing solvents, intermediates, specialty fuels, and other custom products. The team operates in a collaborative, family‑style culture with a strong focus on safety, quality, efficiency, and continuous improvement.",
-    "tags": [
-      "CI/Lean"
-    ],
-    "source": "Google Jobs"
-  },
-  {
-    "id": 298409,
-    "title": "Manufacturing Process Engineer — Operations",
-    "company": "Piramal Pharma Ltd",
-    "color": "#6a3de8",
-    "type": "Full-Time",
-    "location": "Lexington, KY, United States",
-    "discipline": "Manufacturing",
-    "experience": "5+ Years",
-    "salary": "US$80K–US$100K a year",
-    "daysAgo": 3,
-    "url": "https://www.learn4good.com/jobs/lexington/kentucky/engineering/5091035430/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-    "description": "Position: Manufacturing Process Engineer — 24/7 Operations A leading pharmaceutical company in Lexington, Kentucky, is looking for a Manufacturing Process Engineer to provide real-time process engineering support to the manufacturing process. The role involves managing design projects and ensuring compliance and quality across all products.",
-    "tags": [
-      "Manufacturing",
-      "Process",
-      "Operations"
-    ],
-    "source": "Google Jobs"
-  },
-  {
-    "id": 483955,
-    "title": "System Process Engineer - Kentucky",
-    "company": "Contemporary Amperex Technology Kentucky LLC",
-    "color": "#ffa726",
-    "type": "Contract",
-    "location": "Louisville, KY, United States",
-    "discipline": "Process",
-    "experience": "5+ Years",
-    "salary": "Competitive",
-    "daysAgo": 3,
-    "url": "https://bebee.com/us/jobs/system-process-engineer-kentucky-contemporary-amperex-technology-kentucky-llc-louisville--jobted-06447e4e2559f58a49a16bb8f46e56b8?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-    "description": "About Us Contemporary Amperex Technology Kentucky LLC (CATK) is a U.S. subsidiary of Contemporary Amperex Technology Co., Limited (CATL), a global leader in the research, development and manufacturing of advanced electric vehicle and energy storage batteries.",
-    "tags": [
-      "System",
-      "Process",
-      "Kentucky"
-    ],
-    "source": "Google Jobs"
-  },
-  {
-    "id": 412307,
-    "title": "Production & Process Engineering",
-    "company": "Higher Recruitment, Inc.",
-    "color": "#8d6e63",
-    "type": "Full-Time",
-    "location": "Louisville, KY, United States",
-    "discipline": "Manufacturing",
-    "experience": "1–3 Years",
-    "salary": "Competitive",
-    "daysAgo": 3,
-    "url": "https://jooble.org/rjdp/-9055923245004656402?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-    "description": "We are seeking a skilled Process Engineer who will be responsible for developing process-engineering capabilities and driving efficiency in our clients Louisville, KY manufacturing location. The successful candidate will be able to design and improve production processes in order to maintain efficiency, reduce cost, improve sustainability and maximize profitability.",
-    "tags": [
-      "CAPA"
-    ],
-    "source": "Google Jobs"
-  },
-  {
-    "id": 390672,
-    "title": "Process Engineer",
-    "company": "Flexible Recruiting",
-    "color": "#66bb6a",
-    "type": "Full-Time",
-    "location": "Corbin, KY, United States",
-    "discipline": "Process",
-    "experience": "1–3 Years",
-    "salary": "US$70K–US$90K a year",
-    "daysAgo": 4,
-    "url": "https://www.ziprecruiter.com/c/Flexible-Recruiting/Job/Process-Engineer/-in-Corbin,KY?jid=6299f49281e5119c&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-    "description": "Process Engineer over a manufacturing operation that includes mixing cooking and highspeed packaging of food products.Lean and Continuous improvement of all processes in support of agressive growth plans for plant located in South Central Ky.\nSupport Project Engineering by developing layout for expansion of the production.",
-    "tags": [
-      "CI/Lean"
-    ],
-    "source": "Google Jobs"
-  },
-  {
-    "id": 299565,
-    "title": "Project Engineer, Chemical Engineer",
-    "company": "CPS Inc.",
-    "color": "#ffa726",
-    "type": "Full-Time",
-    "location": "Louisville, KY, United States",
-    "discipline": "Process",
-    "experience": "5+ Years",
-    "salary": "US$110K–US$120K a year",
-    "daysAgo": 5,
-    "url": "https://www.learn4good.com/jobs/louisville/kentucky/engineering/5087717254/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-    "description": "Project Engineer/Project Manager/Chemical Process Engineer/Mechanical Engineer/Chemical Engineer/Civil Engineer/Chemicals/Engineer/Refining/Production Engineer/Chemical Manufacturing/Special Projects Engineer/Refinery/Refining/Senior Process Engineer/Oil and Gas/Petrochemicals/PSM/Process Safety Management/Our client is a manufacturer of specialty chemicals in search of a Project Engineer for their facility near Loui...",
-    "tags": [
-      "PSM"
-    ],
-    "source": "Google Jobs"
-  },
-  {
-    "id": 645213,
-    "title": "Lead Engineer, Manufacturing Engineer, Process Engineer",
-    "company": "Smuckers",
-    "color": "#c8412a",
-    "type": "Full-Time",
-    "location": "Scottsville, KY",
-    "discipline": "Manufacturing",
-    "experience": "5+ Years",
-    "salary": "Competitive",
-    "daysAgo": 6,
-    "url": "https://www.learn4good.com/jobs/kentucky/engineering/5084093309/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-    "description": "Location: Scottsville Your Opportunity as the Lead Engineer This role sits at the center of manufacturing performance-turning data, process knowledge, and cross-functional influence into safer operations, stronger yields, faster throughput, and better product consistency.",
-    "tags": [
-      "Lead",
-      "Manufacturing",
-      "Process"
-    ],
-    "source": "Google Jobs"
-  },
-  {
-    "id": 52250,
-    "title": "Process Engineer; Chemical",
-    "company": "Actalent",
-    "color": "#78909c",
-    "type": "Full-Time",
-    "location": "Harrodsburg, KY, United States",
-    "discipline": "Process",
-    "experience": "1–3 Years",
-    "salary": "US$52.88–US$57.69 an hour",
-    "daysAgo": 6,
-    "url": "https://www.learn4good.com/jobs/harrodsburg/kentucky/engineering/5084136942/e/?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic",
-    "description": "Position: Process Engineer (Chemical) Job Description: Process Engineer (Chemical) Client is unable to provide visa sponsorship now or in the future.",
+    "url": "https://www.calumetspecialty.com/careers",
+    "description": "Calumet Specialty Products is hiring process engineers for specialty petroleum refining and blending operations near Lexington, KY.",
     "tags": [
       "Process",
-      "Chemical"
+      "Specialty",
+      "Petroleum"
     ],
-    "source": "Google Jobs"
+    "source": "Calumet"
   }
 ];
 let disciplineFilter='',searchQuery='',companyFilter='',typeFilter='';
@@ -335,7 +177,7 @@ function filterJobs(){
   f.sort((a,b)=>a.daysAgo-b.daysAgo);
   renderJobs(f);
   const filtered=searchQuery||companyFilter||typeFilter||disciplineFilter;
-  document.getElementById('section-label').textContent=filtered?f.length+' Result'+(f.length!==1?'s':'')+' — Newest First':'Live Postings — Last 7 Days';
+  document.getElementById('section-label').textContent=filtered?f.length+' Result'+(f.length!==1?'s':'')+' — Newest First':'Live Postings — Direct from Company Career Pages';
   document.getElementById('results-meta').textContent='Showing '+f.length+' of '+RAW_JOBS.length+' roles · Greater Lexington, KY · Updated hourly';
 }
 function renderJobs(jobs){
@@ -356,7 +198,6 @@ function renderJobs(jobs){
         <div class="card-badges">
           ${isNew(job.daysAgo)?'<span class="badge-new">New</span>':''}
           <span class="badge-date">${daysAgoLabel(job.daysAgo)}</span>
-          <span class="badge-source">via ${job.source||'Google Jobs'}</span>
         </div>
       </div>
       <p class="job-desc">${job.description}</p>
