@@ -46,6 +46,15 @@
   .chip:hover{border-color:var(--accent);color:var(--accent);}
   .chip.active{background:var(--accent);color:#0a0c0f;border-color:var(--accent);font-weight:700;}
   .results-meta{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-muted);padding:0 2rem 1rem;max-width:1200px;margin:0 auto;}
+  .source-status-section{max-width:1200px;margin:0 auto 1.5rem;padding:0 2rem;position:relative;z-index:1;}
+  .source-status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.5rem;}
+  .source-status-card{background:rgba(17,20,24,.75);border:1px solid var(--border);border-radius:8px;padding:.7rem .8rem;font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-muted);}
+  .source-status-card strong{display:block;font-family:'Syne',sans-serif;font-size:.78rem;color:var(--text);margin-bottom:.25rem;}
+  .source-pill{display:inline-block;margin-top:.35rem;padding:.12rem .42rem;border-radius:999px;text-transform:uppercase;letter-spacing:.08em;font-size:.55rem;border:1px solid var(--border);}
+  .source-pill.success{color:var(--green);border-color:rgba(74,222,128,.25);background:rgba(74,222,128,.07);}
+  .source-pill.cached,.source-pill.cached_error{color:var(--accent3);border-color:rgba(255,107,53,.25);background:rgba(255,107,53,.07);}
+  .source-pill.fallback,.source-pill.empty{color:var(--accent2);border-color:rgba(71,200,255,.25);background:rgba(71,200,255,.07);}
+  .source-pill.error{color:#ff6b6b;border-color:rgba(255,107,107,.25);background:rgba(255,107,107,.07);}
   .jobs-section{max-width:1200px;margin:0 auto;padding:0 2rem 4rem;position:relative;z-index:1;}
   .jobs-list{display:flex;flex-direction:column;gap:.75rem;}
   .job-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem 1.6rem;display:grid;grid-template-columns:1fr auto;gap:.6rem 1rem;cursor:pointer;transition:border-color .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden;animation:cardIn .35s both;}
@@ -63,6 +72,10 @@
   .card-badges{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;flex-shrink:0;}
   .badge-new{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;background:var(--accent);color:#0a0c0f;padding:.2rem .5rem;border-radius:3px;font-weight:700;}
   .badge-date{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-muted);}
+  .badge-fallback{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(71,200,255,.12);color:var(--accent2);padding:.2rem .5rem;border-radius:3px;font-weight:700;border:1px solid rgba(71,200,255,.2);}
+  .badge-cached{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,107,53,.12);color:var(--accent3);padding:.2rem .5rem;border-radius:3px;font-weight:700;border:1px solid rgba(255,107,53,.2);}
+  .job-card.fallback{border-style:dashed;opacity:.95;}
+  .job-card.cached{border-color:rgba(255,107,53,.22);}
   .job-desc{font-size:.85rem;color:var(--text-dim);line-height:1.55;grid-column:1/3;}
   .card-footer{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;grid-column:1/3;margin-top:.2rem;}
   .tag{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.06em;padding:.25rem .6rem;border-radius:4px;background:var(--tag-bg);color:var(--tag-text);border:1px solid rgba(107,154,255,.15);}
@@ -86,18 +99,18 @@
 <header>
   <div class="header-inner">
     <a class="logo" href="#"><span class="logo-main">ChemConnect</span><span class="logo-sub">Lexington, KY</span></a>
-    <div class="header-meta"><span><span class="live-dot"></span>Live Board</span><span id="header-count">7 jobs</span></div>
+    <div class="header-meta"><span><span class="live-dot"></span>Live Board</span><span id="header-count">1 jobs</span></div>
   </div>
 </header>
 <div class="hero">
   <div class="hero-eyebrow">Chemical Engineering Opportunities</div>
   <h1 class="hero-title">Jobs Built for<br><span>ChemEng Talent</span></h1>
-  <p class="hero-sub">Real ChemE postings pulled directly from 7 company career pages near Lexington, KY. Every listing links straight to the original job posting. Updated hourly.</p>
+  <p class="hero-sub">Confirmed ChemE postings pulled directly from company career pages near Lexington, KY. Browse links and cached entries are labeled separately so only verified postings count as open roles. Updated hourly.</p>
   <div class="stats-bar">
-    <div class="stat"><div class="stat-val">7</div><div class="stat-label">Open Roles</div></div>
-    <div class="stat"><div class="stat-val">7</div><div class="stat-label">Posted Recently</div></div>
-    <div class="stat"><div class="stat-val">7</div><div class="stat-label">Companies Hiring</div></div>
-    <div class="stat"><div class="stat-val">KY</div><div class="stat-label">Greater Lexington</div></div>
+    <div class="stat"><div class="stat-val">1</div><div class="stat-label">Confirmed Roles</div></div>
+    <div class="stat"><div class="stat-val">1</div><div class="stat-label">Posted Recently</div></div>
+    <div class="stat"><div class="stat-val">6</div><div class="stat-label">Browse Links</div></div>
+    <div class="stat"><div class="stat-val">0</div><div class="stat-label">Cached Roles</div></div>
   </div>
 </div>
 <div class="search-section">
@@ -110,6 +123,7 @@
     <select id="type-filter" onchange="filterJobs()">
       <option value="">All Types</option><option value="Full-Time">Full-Time</option>
       <option value="Contract">Contract</option><option value="Part-Time">Part-Time</option>
+      <option value="Career Page">Career Page</option><option value="Cached">Cached</option>
     </select>
   </div>
   <div class="filter-chips">
@@ -123,132 +137,20 @@
   </div>
 </div>
 <div class="results-meta" id="results-meta"></div>
-<div class="updated-bar">⟳ Last updated: May 16, 2026 at 12:28 AM · Scraped directly from company career pages</div>
+<div class="updated-bar">⟳ Last updated: May 16, 2026 at 01:19 AM · Confirmed postings + labeled fallback links</div>
+<div class="source-status-section">
+  <div class="section-label">Source Health</div>
+  <div class="source-status-grid" id="source-status-grid"></div>
+</div>
 <div class="jobs-section">
-  <div class="section-label" id="section-label">Live Postings — Direct from Company Career Pages</div>
+  <div class="section-label" id="section-label">Confirmed Postings — Fallbacks Labeled Separately</div>
   <div class="jobs-list" id="jobs-list"></div>
 </div>
 <footer>ChemConnect KY &nbsp;·&nbsp; Real ChemE Jobs · Greater Lexington, KY &nbsp;·&nbsp; Scraped hourly from company career sites</footer>
 <script>
 const RAW_JOBS=[
   {
-    "id": 929373,
-    "title": "Engineer Openings — Smucker's",
-    "company": "Smucker's",
-    "color": "#c8412a",
-    "type": "Full-Time",
-    "location": "Lexington, KY",
-    "discipline": "Process",
-    "experience": "1–3 Years",
-    "salary": "Competitive",
-    "daysAgo": 0,
-    "url": "https://smucker.wd5.myworkdayjobs.com/en-US/SJM_Professional?q=engineer",
-    "description": "Smucker's is hiring engineers at its Lexington, KY facility. Click to view all current engineering openings.",
-    "tags": [
-      "Openings",
-      "Smucker"
-    ],
-    "source": "Smucker's"
-  },
-  {
-    "id": 912271,
-    "title": "Engineer Openings — Valvoline",
-    "company": "Valvoline",
-    "color": "#e87d00",
-    "type": "Full-Time",
-    "location": "Lexington, KY",
-    "discipline": "Process",
-    "experience": "1–3 Years",
-    "salary": "Competitive",
-    "daysAgo": 0,
-    "url": "https://jobs.vioc.com/jobs?q=engineer&location=Lexington+KY",
-    "description": "Valvoline is hiring engineers in the Lexington, KY area. Click to browse all current openings on jobs.vioc.com.",
-    "tags": [
-      "Openings",
-      "Valvoline"
-    ],
-    "source": "Valvoline"
-  },
-  {
-    "id": 924643,
-    "title": "Engineering Openings — Kindeva Drug Delivery",
-    "company": "Kindeva",
-    "color": "#2a7de1",
-    "type": "Full-Time",
-    "location": "Lexington, KY",
-    "discipline": "Pharma",
-    "experience": "1–3 Years",
-    "salary": "Competitive",
-    "daysAgo": 0,
-    "url": "https://www.kindevadds.com/careers",
-    "description": "Kindeva Drug Delivery is hiring engineers in Lexington, KY for inhaled drug delivery product manufacturing. Click to view all openings.",
-    "tags": [
-      "Openings",
-      "Kindeva",
-      "Drug"
-    ],
-    "source": "Kindeva"
-  },
-  {
-    "id": 582554,
-    "title": "Engineering Openings — Piramal Pharma Solutions",
-    "company": "Piramal",
-    "color": "#6a3de8",
-    "type": "Full-Time",
-    "location": "Lexington, KY",
-    "discipline": "Pharma",
-    "experience": "1–3 Years",
-    "salary": "Competitive",
-    "daysAgo": 0,
-    "url": "https://www.piramalpharmasolutions.com/careers",
-    "description": "Piramal Pharma Solutions is hiring engineers at its Lexington, KY cGMP manufacturing facility. Click to view all current openings.",
-    "tags": [
-      "GMP",
-      "cGMP"
-    ],
-    "source": "Piramal"
-  },
-  {
-    "id": 951216,
-    "title": "Engineering Openings — Ashland Global",
-    "company": "Ashland",
-    "color": "#00897b",
-    "type": "Full-Time",
-    "location": "Lexington, KY",
-    "discipline": "Process",
-    "experience": "1–3 Years",
-    "salary": "Competitive",
-    "daysAgo": 0,
-    "url": "https://ashland.wd1.myworkdayjobs.com/en-US/ashland?q=engineer",
-    "description": "Ashland Global is hiring chemical engineers at its Lexington, KY specialty chemicals facility. Click to browse all current openings.",
-    "tags": [
-      "Openings",
-      "Ashland",
-      "Global"
-    ],
-    "source": "Ashland"
-  },
-  {
-    "id": 20780,
-    "title": "Chemical/Materials Engineer",
-    "company": "Bullard",
-    "color": "#d4a017",
-    "type": "Full-Time",
-    "location": "Lexington, KY",
-    "discipline": "Process",
-    "experience": "1–3 Years",
-    "salary": "Competitive",
-    "daysAgo": 1,
-    "url": "https://mybullard.com/careers?_gl=1*zqdkin*_gcl_au*NzMyMzAwODAwLjE3Nzg1NTM3NDY./about/careers/",
-    "description": "Bullard is hiring engineering talent for PPE product development in Lexington, KY. Visit the careers page for current openings.",
-    "tags": [
-      "Chemical",
-      "Materials"
-    ],
-    "source": "Bullard"
-  },
-  {
-    "id": 633389,
+    "id": 950591,
     "title": "Process Engineer — Specialty Petroleum",
     "company": "Calumet",
     "color": "#4a5568",
@@ -265,7 +167,279 @@ const RAW_JOBS=[
       "Specialty",
       "Petroleum"
     ],
-    "source": "Calumet"
+    "source": "Calumet",
+    "kind": "job",
+    "verified": true,
+    "stale": false,
+    "cacheAgeDays": null
+  },
+  {
+    "id": 112871,
+    "title": "Engineer Openings — Smucker's",
+    "company": "Smucker's",
+    "color": "#c8412a",
+    "type": "Career Page",
+    "location": "Lexington, KY",
+    "discipline": "Process",
+    "experience": "Browse",
+    "salary": "See posting",
+    "daysAgo": 0,
+    "url": "https://smucker.wd5.myworkdayjobs.com/en-US/SJM_Professional?q=engineer",
+    "description": "Smucker's is hiring engineers at its Lexington, KY facility. Click to view all current engineering openings.",
+    "tags": [
+      "Openings",
+      "Smucker"
+    ],
+    "source": "Smucker's",
+    "kind": "career_page",
+    "verified": false,
+    "stale": false,
+    "cacheAgeDays": null
+  },
+  {
+    "id": 910994,
+    "title": "Engineer Openings — Valvoline",
+    "company": "Valvoline",
+    "color": "#e87d00",
+    "type": "Career Page",
+    "location": "Lexington, KY",
+    "discipline": "Process",
+    "experience": "Browse",
+    "salary": "See posting",
+    "daysAgo": 0,
+    "url": "https://jobs.vioc.com/jobs?q=engineer&location=Lexington+KY",
+    "description": "Valvoline is hiring engineers in the Lexington, KY area. Click to browse all current openings on jobs.vioc.com.",
+    "tags": [
+      "Openings",
+      "Valvoline"
+    ],
+    "source": "Valvoline",
+    "kind": "career_page",
+    "verified": false,
+    "stale": false,
+    "cacheAgeDays": null
+  },
+  {
+    "id": 611919,
+    "title": "Engineering Openings — Kindeva Drug Delivery",
+    "company": "Kindeva",
+    "color": "#2a7de1",
+    "type": "Career Page",
+    "location": "Lexington, KY",
+    "discipline": "Pharma",
+    "experience": "Browse",
+    "salary": "See posting",
+    "daysAgo": 0,
+    "url": "https://www.kindevadds.com/careers",
+    "description": "Kindeva Drug Delivery is hiring engineers in Lexington, KY for inhaled drug delivery product manufacturing. Click to view all openings.",
+    "tags": [
+      "Openings",
+      "Kindeva",
+      "Drug"
+    ],
+    "source": "Kindeva",
+    "kind": "career_page",
+    "verified": false,
+    "stale": false,
+    "cacheAgeDays": null
+  },
+  {
+    "id": 341974,
+    "title": "Engineering Openings — Piramal Pharma Solutions",
+    "company": "Piramal",
+    "color": "#6a3de8",
+    "type": "Career Page",
+    "location": "Lexington, KY",
+    "discipline": "Pharma",
+    "experience": "Browse",
+    "salary": "See posting",
+    "daysAgo": 0,
+    "url": "https://www.piramalpharmasolutions.com/careers",
+    "description": "Piramal Pharma Solutions is hiring engineers at its Lexington, KY cGMP manufacturing facility. Click to view all current openings.",
+    "tags": [
+      "GMP",
+      "cGMP"
+    ],
+    "source": "Piramal",
+    "kind": "career_page",
+    "verified": false,
+    "stale": false,
+    "cacheAgeDays": null
+  },
+  {
+    "id": 757676,
+    "title": "Engineering Openings — Ashland Global",
+    "company": "Ashland",
+    "color": "#00897b",
+    "type": "Career Page",
+    "location": "Lexington, KY",
+    "discipline": "Process",
+    "experience": "Browse",
+    "salary": "See posting",
+    "daysAgo": 0,
+    "url": "https://ashland.wd1.myworkdayjobs.com/en-US/ashland?q=engineer",
+    "description": "Ashland Global is hiring chemical engineers at its Lexington, KY specialty chemicals facility. Click to browse all current openings.",
+    "tags": [
+      "Openings",
+      "Ashland",
+      "Global"
+    ],
+    "source": "Ashland",
+    "kind": "career_page",
+    "verified": false,
+    "stale": false,
+    "cacheAgeDays": null
+  },
+  {
+    "id": 22334,
+    "title": "Chemical/Materials Engineer",
+    "company": "Bullard",
+    "color": "#d4a017",
+    "type": "Career Page",
+    "location": "Lexington, KY",
+    "discipline": "Process",
+    "experience": "Browse",
+    "salary": "See posting",
+    "daysAgo": 1,
+    "url": "https://mybullard.com/careers?_gl=1*zqdkin*_gcl_au*NzMyMzAwODAwLjE3Nzg1NTM3NDY./about/careers/",
+    "description": "Bullard is hiring engineering talent for PPE product development in Lexington, KY. Visit the careers page for current openings.",
+    "tags": [
+      "Chemical",
+      "Materials"
+    ],
+    "source": "Bullard",
+    "kind": "career_page",
+    "verified": false,
+    "stale": false,
+    "cacheAgeDays": null
+  }
+];
+const SOURCE_STATUS=[
+  {
+    "company": "Smucker's",
+    "status": "fallback",
+    "jobsFound": 0,
+    "fallbacks": 1,
+    "cachedJobs": 0,
+    "message": "No confirmed postings found; showing career-page link.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Valvoline",
+    "status": "fallback",
+    "jobsFound": 0,
+    "fallbacks": 1,
+    "cachedJobs": 0,
+    "message": "No confirmed postings found; showing career-page link.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Kindeva",
+    "status": "fallback",
+    "jobsFound": 0,
+    "fallbacks": 1,
+    "cachedJobs": 0,
+    "message": "No confirmed postings found; showing career-page link.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Piramal",
+    "status": "fallback",
+    "jobsFound": 0,
+    "fallbacks": 1,
+    "cachedJobs": 0,
+    "message": "No confirmed postings found; showing career-page link.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Bullard",
+    "status": "fallback",
+    "jobsFound": 0,
+    "fallbacks": 1,
+    "cachedJobs": 0,
+    "message": "No confirmed postings found; showing career-page link.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Ashland",
+    "status": "fallback",
+    "jobsFound": 0,
+    "fallbacks": 1,
+    "cachedJobs": 0,
+    "message": "No confirmed postings found; showing career-page link.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Lexmark",
+    "status": "empty",
+    "jobsFound": 0,
+    "fallbacks": 0,
+    "cachedJobs": 0,
+    "message": "No postings found.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Toyota",
+    "status": "empty",
+    "jobsFound": 0,
+    "fallbacks": 0,
+    "cachedJobs": 0,
+    "message": "No postings found.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Sherwin-Williams",
+    "status": "empty",
+    "jobsFound": 0,
+    "fallbacks": 0,
+    "cachedJobs": 0,
+    "message": "No postings found.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Hexion",
+    "status": "empty",
+    "jobsFound": 0,
+    "fallbacks": 0,
+    "cachedJobs": 0,
+    "message": "No postings found.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Berry Global",
+    "status": "empty",
+    "jobsFound": 0,
+    "fallbacks": 0,
+    "cachedJobs": 0,
+    "message": "No postings found.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Henkel",
+    "status": "empty",
+    "jobsFound": 0,
+    "fallbacks": 0,
+    "cachedJobs": 0,
+    "message": "No postings found.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Calumet",
+    "status": "success",
+    "jobsFound": 1,
+    "fallbacks": 0,
+    "cachedJobs": 0,
+    "message": "1 confirmed posting(s) found.",
+    "lastChecked": "2026-05-16 01:19"
+  },
+  {
+    "company": "Bunge",
+    "status": "empty",
+    "jobsFound": 0,
+    "fallbacks": 0,
+    "cachedJobs": 0,
+    "message": "No postings found.",
+    "lastChecked": "2026-05-16 01:19"
   }
 ];
 let disciplineFilter='',searchQuery='',companyFilter='',typeFilter='';
@@ -276,6 +450,15 @@ function initCompanyFilter(){
   [...new Set(RAW_JOBS.map(j=>j.company))].sort().forEach(c=>{
     const o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);
   });
+}
+function renderSourceStatus(){
+  const grid=document.getElementById('source-status-grid');
+  if(!grid||!SOURCE_STATUS.length)return;
+  grid.innerHTML=SOURCE_STATUS.map(s=>`<div class="source-status-card">
+    <strong>${s.company}</strong>
+    <div>${s.jobsFound||0} confirmed · ${s.cachedJobs||0} cached · ${s.fallbacks||0} links</div>
+    <span class="source-pill ${s.status}">${s.status.replace('_',' ')}</span>
+  </div>`).join('');
 }
 function setDiscipline(disc){
   disciplineFilter=disc;
@@ -293,8 +476,8 @@ function filterJobs(){
   f.sort((a,b)=>a.daysAgo-b.daysAgo);
   renderJobs(f);
   const filtered=searchQuery||companyFilter||typeFilter||disciplineFilter;
-  document.getElementById('section-label').textContent=filtered?f.length+' Result'+(f.length!==1?'s':'')+' — Newest First':'Live Postings — Direct from Company Career Pages';
-  document.getElementById('results-meta').textContent='Showing '+f.length+' of '+RAW_JOBS.length+' roles · Greater Lexington, KY · Updated hourly';
+  document.getElementById('section-label').textContent=filtered?f.length+' Result'+(f.length!==1?'s':'')+' — Newest First':'Confirmed Postings — Fallbacks Labeled Separately';
+  document.getElementById('results-meta').textContent='Showing '+f.length+' of '+RAW_JOBS.length+' displayed entries · '+RAW_JOBS.filter(j=>j.kind==='job'&&!j.stale&&j.verified).length+' confirmed roles · Greater Lexington, KY';
 }
 function renderJobs(jobs){
   const c=document.getElementById('jobs-list');
@@ -302,7 +485,9 @@ function renderJobs(jobs){
   c.innerHTML=jobs.map((job,i)=>{
     const initials=job.company.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
     const safeUrl=job.url.replace(/'/g,"%27");
-    return `<div class="job-card ${isNew(job.daysAgo)?'new-today':''}" style="animation-delay:${i*.04}s" onclick="window.open('${safeUrl}','_blank','noopener')">
+    const isFallback=job.kind==='career_page';
+    const isCached=!!job.stale;
+    return `<div class="job-card ${isNew(job.daysAgo)&&!isFallback&&!isCached?'new-today':''} ${isFallback?'fallback':''} ${isCached?'cached':''}" style="animation-delay:${i*.04}s" onclick="window.open('${safeUrl}','_blank','noopener')">
       <div class="card-top">
         <div>
           <div class="company-row">
@@ -312,8 +497,10 @@ function renderJobs(jobs){
           <a class="job-title" href="${safeUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${job.title}</a>
         </div>
         <div class="card-badges">
-          ${isNew(job.daysAgo)?'<span class="badge-new">New</span>':''}
-          <span class="badge-date">${daysAgoLabel(job.daysAgo)}</span>
+          ${isFallback?'<span class="badge-fallback">Browse Link</span>':''}
+          ${isCached?'<span class="badge-cached">Cached</span>':''}
+          ${isNew(job.daysAgo)&&!isFallback&&!isCached?'<span class="badge-new">New</span>':''}
+          <span class="badge-date">${isFallback?'Career page':(isCached?('Cached '+(job.cacheAgeDays??'?')+'d'):daysAgoLabel(job.daysAgo))}</span>
         </div>
       </div>
       <p class="job-desc">${job.description}</p>
@@ -327,7 +514,7 @@ function renderJobs(jobs){
     </div>`;
   }).join('');
 }
-initCompanyFilter();filterJobs();
+initCompanyFilter();renderSourceStatus();filterJobs();
 </script>
 </body>
 </html>
